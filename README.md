@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # id_card_generator
 
 A new Flutter project.
@@ -14,3 +15,6 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+=======
+# id-card_generator
+>>>>>>> d023d8d71ea8d6ecf4e66c38bb6099e04a99fbe7
