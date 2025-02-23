@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# id_card_generator
+## Visiting Card Generator
 
 A new Flutter project.
 
