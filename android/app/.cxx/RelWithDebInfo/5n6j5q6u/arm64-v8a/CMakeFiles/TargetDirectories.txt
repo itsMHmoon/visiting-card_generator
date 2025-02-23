@@ -1,0 +1,2 @@
+F:/Dev/Flutter/04. ID Card Generator/id_card_generator/android/app/.cxx/RelWithDebInfo/5n6j5q6u/arm64-v8a/CMakeFiles/edit_cache.dir
+F:/Dev/Flutter/04. ID Card Generator/id_card_generator/android/app/.cxx/RelWithDebInfo/5n6j5q6u/arm64-v8a/CMakeFiles/rebuild_cache.dir

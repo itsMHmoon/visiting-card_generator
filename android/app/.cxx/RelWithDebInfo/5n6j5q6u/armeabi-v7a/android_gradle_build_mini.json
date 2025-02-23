@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "C:\\Devsrc\\flutter\\packages\\flutter_tools\\gradle\\src\\main\\groovy\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\onmox\\AppData\\Local\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "F:\\Dev\\Flutter\\04. ID Card Generator\\id_card_generator\\android\\app\\.cxx\\RelWithDebInfo\\5n6j5q6u\\armeabi-v7a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\onmox\\AppData\\Local\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "F:\\Dev\\Flutter\\04. ID Card Generator\\id_card_generator\\android\\app\\.cxx\\RelWithDebInfo\\5n6j5q6u\\armeabi-v7a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

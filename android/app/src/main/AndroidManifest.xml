@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="id_card_generator"
+        android:label="ID Card"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
