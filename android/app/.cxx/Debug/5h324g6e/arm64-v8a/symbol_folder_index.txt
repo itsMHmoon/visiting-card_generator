@@ -1,0 +1,1 @@
+F:\Dev\Flutter\04. Visiting Card Generator\visiting_card_generator\build\app\intermediates\cxx\Debug\5h324g6e\obj\arm64-v8a

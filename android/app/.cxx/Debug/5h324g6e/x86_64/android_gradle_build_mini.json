@@ -1,0 +1,20 @@
+{
+  "buildFiles": [
+    "C:\\Devsrc\\flutter\\packages\\flutter_tools\\gradle\\src\\main\\groovy\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\Users\\onmox\\AppData\\Local\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "F:\\Dev\\Flutter\\04. Visiting Card Generator\\visiting_card_generator\\android\\app\\.cxx\\Debug\\5h324g6e\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\Users\\onmox\\AppData\\Local\\Android\\sdk\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "F:\\Dev\\Flutter\\04. Visiting Card Generator\\visiting_card_generator\\android\\app\\.cxx\\Debug\\5h324g6e\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {}
+}

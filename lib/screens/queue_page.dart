@@ -94,6 +94,8 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
     await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
   }
 
+
+
   void _showGeneratedCard() {
     showDialog(
       context: context,
@@ -103,67 +105,112 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
           content: SizedBox(
             width: 300,
             height: 170,
-            child: Card(
-              elevation: 5,
-              child: Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Padding(padding: EdgeInsets.only(top: 7)),
-                          if (name.isNotEmpty) Text(
-                            name,
-                            style: GoogleFonts.oswald(fontSize: 18, color: Colors.blue[900]),
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 2)),
-                          if (degree.isNotEmpty) Text(degree, style: GoogleFonts.jost(fontSize: 14, color: Colors.black)),
-                          Padding(padding: EdgeInsets.only(top: 2)),
-                          if (designation.isNotEmpty) Text(designation, style: GoogleFonts.jost(fontSize: 16, color: Colors.black)),
-                        ],
+            child: AspectRatio(
+              aspectRatio: 9 / 3, // Adjust this ratio as needed (Width / Height)
+              child: Card(
+                elevation: 5,
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Padding(padding: EdgeInsets.only(top: 7)),
+                            if (name.isNotEmpty)
+                              Text(
+                                name.toUpperCase(),
+                                style: GoogleFonts.oswald(fontSize: 18, color: Colors.blue[900]),
+                              ),
+                            Padding(padding: EdgeInsets.only(top: 2)),
+                            if (degree.isNotEmpty)
+                              Text(degree, style: GoogleFonts.jost(fontSize: 14, color: Colors.black)),
+                            Padding(padding: EdgeInsets.only(top: 2)),
+                            if (designation.isNotEmpty)
+                              Text(designation, style: GoogleFonts.jost(fontSize: 16, color: Colors.black)),
+                          ],
+                        ),
                       ),
-                    ),
-                    VerticalDivider(color: Colors.black),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(padding: EdgeInsets.only(top: 10)),
-                          if (phone.isNotEmpty) Row(
-                            children: [
-                              Icon (Icons.phone_android_rounded, size: 17,), SizedBox(width: 4), Text(phone, style: GoogleFonts.nunito(fontSize: 12, color: Colors.black),)]),
-                          Padding(padding: EdgeInsets.only(top: 7)),
-                          if (email.isNotEmpty) Row(children: [Icon(Icons.email_rounded, size: 17,), SizedBox(width: 4), Text(email, style: GoogleFonts.nunito(fontSize: 12, color: Colors.black),)]),
-                          Padding(padding: EdgeInsets.only(top: 7)),
-                          if (address.isNotEmpty) Row (children: [Icon(Icons.location_city_rounded, size: 17), SizedBox(width: 4), Text(address, style: GoogleFonts.nunito(fontSize: 12, color: Colors.black),)]),
-                        ],
+                      VerticalDivider(color: Colors.black),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(padding: EdgeInsets.only(top: 10)),
+                            if (phone.isNotEmpty)
+                              Row(
+                                children: [
+                                  Icon(Icons.phone_android_rounded, size: 17),
+                                  SizedBox(width: 4),
+                                  Text(phone, style: GoogleFonts.nunito(fontSize: 10, color: Colors.black)),
+                                ],
+                              ),
+                            Padding(padding: EdgeInsets.only(top: 7)),
+                            if (email.isNotEmpty)
+                              Row(
+                                children: [
+                                  Icon(Icons.email_rounded, size: 17),
+                                  SizedBox(width: 4),
+                                  Text(email, style: GoogleFonts.nunito(fontSize: 10, color: Colors.black)),
+                                ],
+                              ),
+                            Padding(padding: EdgeInsets.only(top: 7)),
+                            if (address.isNotEmpty)
+                              Row(
+                                children: [
+                                  Icon(Icons.location_city_rounded, size: 17),
+                                  SizedBox(width: 4),
+                                  Text(address, 
+                                        style: GoogleFonts.nunito(fontSize: 10, 
+                                        color: Colors.black,
+                                        // maxLines: 1,
+                                        // overflow: TextOverflow.ellipsis,
+                                        )
+                                    ),
+                                ],
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
+
             ),
           ),
           actions: [
             Text('Unique ID: $uniqueId', style: GoogleFonts.abel(fontSize: 7, color: Color.fromARGB(101, 77, 76, 76))),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.blue, foregroundColor: Colors.white, elevation: 2),
+              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 0, 153, 255), foregroundColor: Colors.white, elevation: 2),
               onPressed: _printCard,
-              child: Text('Print / Export as PDF'),
+              child: Text('Export',
+                          style: GoogleFonts.gabarito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+              ),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent, foregroundColor: Colors.white, elevation: 2),
+              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 51, 1), foregroundColor: Colors.white, elevation: 2),
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Close'),
+              child: Text('Close',
+                          style: GoogleFonts.gabarito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                        ),
             ),
           ],
         );
       },
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
