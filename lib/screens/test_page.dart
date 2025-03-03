@@ -15,19 +15,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: VisitingCardForm(),
+      home: TestPage(),
     );
   }
 }
 
-class VisitingCardForm extends StatefulWidget {
-  const VisitingCardForm({super.key});
+class TestPage extends StatefulWidget {
+  const TestPage({super.key});
 
   @override
-  _VisitingCardFormState createState() => _VisitingCardFormState();
+  _TestPageState createState() => _TestPageState();
 }
 
-class _VisitingCardFormState extends State<VisitingCardForm> {
+class _TestPageState extends State<TestPage> {
   final _formKey = GlobalKey<FormState>();
   String name = "";
   String degree = "";

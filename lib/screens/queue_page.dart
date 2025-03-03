@@ -15,29 +15,31 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: VisitingCardForm(),
+      home: QueuePage(),
     );
   }
 }
 
-class VisitingCardForm extends StatefulWidget {
-  const VisitingCardForm({super.key});
+class QueuePage extends StatefulWidget {
+  const QueuePage({super.key});
 
   @override
-  _VisitingCardFormState createState() => _VisitingCardFormState();
+  _QueuePageState createState() => _QueuePageState();
 }
 
-class _VisitingCardFormState extends State<VisitingCardForm> {
+class _QueuePageState extends State<QueuePage> {
   final _formKey = GlobalKey<FormState>();
+  List<Map<String, String>> visitingCards = [];
+
   String name = "";
   String degree = "";
   String designation = "";
   String phone = "";
   String email = "";
   String address = "";
-  int uniqueId = 0;
 
-  Future<void> _printCard() async {
+
+    Future<void> _printCard() async {
     final pdf = pw.Document();
 
     pdf.addPage(
@@ -48,7 +50,9 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
             height: 170,
             padding: pw.EdgeInsets.all(16.0),
             decoration: pw.BoxDecoration(
-              border: pw.Border.all(color: PdfColors.black, width: 2),
+              border: pw.Border.all(
+                color: PdfColors.black, 
+                width: 2),
               borderRadius: pw.BorderRadius.circular(10),
             ),
             child: pw.Row(
@@ -61,7 +65,10 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
                       if (name.isNotEmpty)
                         pw.Text(
                           name,
-                          style: pw.TextStyle(fontSize: 17, color: PdfColors.blue900),
+                          style: pw.TextStyle(
+                            fontSize: 17, 
+                            color: PdfColors.blue900
+                          ),
                         ),
                       if (degree.isNotEmpty) pw.Text(degree),
                       if (designation.isNotEmpty) pw.Text(designation),
@@ -91,22 +98,136 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
     );
 
 
-    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => pdf.save());
+    await Printing.layoutPdf(
+            onLayout: (PdfPageFormat format) async => pdf.save());
   }
 
 
+  void _addCard() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        visitingCards.add({
+          'name': name,
+          'degree': degree,
+          'designation': designation,
+          'phone': phone,
+          'email': email,
+          'address': address,
+        });
+      });
+    }
+  }
 
-  void _showGeneratedCard() {
+  void _editCard(int index) {
+    Map<String, String> card = visitingCards[index];
+    TextEditingController nameController = TextEditingController(text: card['name']);
+    TextEditingController degreeController = TextEditingController(text: card['degree']);
+    TextEditingController designationController = TextEditingController(text: card['designation']);
+    TextEditingController phoneController = TextEditingController(text: card['phone']);
+    TextEditingController emailController = TextEditingController(text: card['email']);
+    TextEditingController addressController = TextEditingController(text: card['address']);
+
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Generated Visiting Card:'),
-          content: SizedBox(
+      builder: (context) => AlertDialog(
+        title: Text('Update Information',
+                    style: GoogleFonts.gabarito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                  ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: nameController, 
+              decoration: InputDecoration(labelText: 'Name')),
+            TextField(
+              controller: degreeController, 
+              decoration: InputDecoration(labelText: 'Degree')),
+            TextField(
+              controller: designationController, 
+              decoration: InputDecoration(labelText: 'Designation')),
+            TextField(
+              controller: phoneController, 
+              decoration: InputDecoration(labelText: 'Phone')),
+            TextField(
+              controller: emailController, 
+              decoration: InputDecoration(labelText: 'Email')),
+            TextField(
+              controller: addressController, 
+              decoration: InputDecoration(labelText: 'Address')),
+          ],
+        ),
+        actions: [
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 153, 1), 
+            foregroundColor: Colors.white, 
+            elevation: 2),
+            onPressed: () {
+              setState(() {
+                visitingCards[index] = {
+                  'name': nameController.text,
+                  'degree': degreeController.text,
+                  'designation': designationController.text,
+                  'phone': phoneController.text,
+                  'email': emailController.text,
+                  'address': addressController.text,
+                };
+              });
+              Navigator.pop(context);
+            },
+            child: Text('Update',
+                    style: GoogleFonts.gabarito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+            ),
+          ),
+
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 51, 1), 
+              foregroundColor: Colors.white, 
+              elevation: 2),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Close',
+                          style: GoogleFonts.gabarito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                        ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
+//
+// New Card
+//
+
+
+  void _showGeneratedCard(Map<String, String> card) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Visiting Card',
+                    style: GoogleFonts.gantari(
+                                              fontSize: 25,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.black,
+                                            ),
+                  ),
+
+        content: SizedBox(
             width: 300,
             height: 170,
             child: AspectRatio(
-              aspectRatio: 9 / 3, // Adjust this ratio as needed (Width / Height)
+              aspectRatio: 15 / 3, // Adjust this ratio as needed (Width / Height)
               child: Card(
                 elevation: 5,
                 child: Padding(
@@ -121,19 +242,23 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
                             Padding(padding: EdgeInsets.only(top: 7)),
                             if (name.isNotEmpty)
                               Text(
-                                name.toUpperCase(),
-                                style: GoogleFonts.oswald(fontSize: 18, color: Colors.blue[900]),
+                                card['name']?.toUpperCase() ?? '',
+                                style: GoogleFonts.oswald(fontSize: 14, color: Colors.blue[900]),
                               ),
                             Padding(padding: EdgeInsets.only(top: 2)),
                             if (degree.isNotEmpty)
-                              Text(degree, style: GoogleFonts.jost(fontSize: 14, color: Colors.black)),
+                              Text(
+                                card['degree'] ?? '', 
+                                style: GoogleFonts.jost(fontSize: 10, color: Colors.black)),
                             Padding(padding: EdgeInsets.only(top: 2)),
                             if (designation.isNotEmpty)
-                              Text(designation, style: GoogleFonts.jost(fontSize: 16, color: Colors.black)),
+                              Text(
+                                card['designation'] ?? '', 
+                                style: GoogleFonts.jost(fontSize: 12, color: Colors.black)),
                           ],
                         ),
                       ),
-                      VerticalDivider(color: Colors.black),
+                      VerticalDivider(color: const Color.fromARGB(100, 0, 0, 0)),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -142,28 +267,32 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
                             if (phone.isNotEmpty)
                               Row(
                                 children: [
-                                  Icon(Icons.phone_android_rounded, size: 17),
+                                  Icon(Icons.phone_android_rounded, size: 15),
                                   SizedBox(width: 4),
-                                  Text(phone, style: GoogleFonts.nunito(fontSize: 10, color: Colors.black)),
+                                  Text(
+                                    card['phone'] ?? '',
+                                    style: GoogleFonts.nunito(fontSize: 8, color: Colors.black)),
                                 ],
                               ),
                             Padding(padding: EdgeInsets.only(top: 7)),
                             if (email.isNotEmpty)
                               Row(
                                 children: [
-                                  Icon(Icons.email_rounded, size: 17),
+                                  Icon(Icons.email_rounded, size: 15),
                                   SizedBox(width: 4),
-                                  Text(email, style: GoogleFonts.nunito(fontSize: 10, color: Colors.black)),
+                                  Text(
+                                    card['email'] ?? '', 
+                                    style: GoogleFonts.nunito(fontSize: 8, color: Colors.black)),
                                 ],
                               ),
                             Padding(padding: EdgeInsets.only(top: 7)),
                             if (address.isNotEmpty)
                               Row(
                                 children: [
-                                  Icon(Icons.location_city_rounded, size: 17),
+                                  Icon(Icons.location_city_rounded, size: 15),
                                   SizedBox(width: 4),
                                   Text(address, 
-                                        style: GoogleFonts.nunito(fontSize: 10, 
+                                        style: GoogleFonts.nunito(fontSize: 8, 
                                         color: Colors.black,
                                         // maxLines: 1,
                                         // overflow: TextOverflow.ellipsis,
@@ -181,10 +310,13 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
 
             ),
           ),
-          actions: [
-            Text('Unique ID: $uniqueId', style: GoogleFonts.abel(fontSize: 7, color: Color.fromARGB(101, 77, 76, 76))),
+
+        actions: [
+            // Text('Unique ID: $uniqueId', style: GoogleFonts.abel(fontSize: 7, color: Color.fromARGB(101, 77, 76, 76))),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 0, 153, 255), foregroundColor: Colors.white, elevation: 2),
+              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 0, 153, 255), 
+              foregroundColor: Colors.white, 
+              elevation: 2),
               onPressed: _printCard,
               child: Text('Export',
                           style: GoogleFonts.gabarito(
@@ -195,7 +327,9 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
               ),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 51, 1), foregroundColor: Colors.white, elevation: 2),
+              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 51, 1), 
+              foregroundColor: Colors.white, 
+              elevation: 2),
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Close',
                           style: GoogleFonts.gabarito(
@@ -205,71 +339,89 @@ class _VisitingCardFormState extends State<VisitingCardForm> {
                                             ),
                         ),
             ),
-          ],
-        );
-      },
+        ],
+      ),
     );
   }
+
+
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Visiting Card Generator"),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: Text('Visiting Card Generator',)),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Name'),
-                  onChanged: (value) => name = value.toUpperCase(),
-                  validator: (value) => value!.isEmpty ? 'Please enter name' : null,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Degree or Title'),
-                  onChanged: (value) => degree = value,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Designation'),
-                  onChanged: (value) => designation = value,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Phone Number with Country Code'),
-                  keyboardType: TextInputType.phone,
-                  onChanged: (value) => phone = value,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Email'),
-                  keyboardType: TextInputType.emailAddress,
-                  onChanged: (value) => email = value.toLowerCase(),
-                ),
-                TextFormField(
-                  decoration: InputDecoration(labelText: 'Address (Street, Region, Country)'),
-                  onChanged: (value) => address = value,
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green, foregroundColor: Colors.white, elevation: 2),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      setState(() {
-                        uniqueId = DateTime.now().millisecondsSinceEpoch;
-                      });
-                      _showGeneratedCard();
-                    }
-                  },
-                  child: Text('Generate'),
-                ),
-                
-              ],
+        child: Column(
+          children: [
+            Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Name'),
+                    onChanged: (value) => name = value,
+                    validator: (value) => value!.isEmpty ? 'Enter name' : null,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Degree'), 
+                    onChanged: (value) => degree = value),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Designation'), 
+                    onChanged: (value) => designation = value),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Phone'), 
+                    keyboardType: TextInputType.phone, 
+                    onChanged: (value) { 
+                      if (RegExp(r'^[0-9+]+$').hasMatch(value)) {
+                        phone = value; 
+                        }
+                      },
+                    ),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Email'), 
+                    onChanged: (value) => email = value),
+                  TextFormField(
+                    decoration: InputDecoration(labelText: 'Address'), 
+                    onChanged: (value) => address = value),
+                  SizedBox(height: 10),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 51, 204, 1), 
+                    foregroundColor: Colors.white, 
+                    elevation: 2),
+                    onPressed: _addCard, 
+                    child: Text('Create',
+                              style: GoogleFonts.gabarito(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                    ),  
+                  ),
+                ],
+              ),
             ),
-          ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: visitingCards.length,
+                itemBuilder: (context, index) {
+                  Map<String, String> card = visitingCards[index];
+                  return GestureDetector(
+                    onTap: () => _showGeneratedCard(card),
+                    onDoubleTap: () => _editCard(index),
+                    child: Card(
+                      elevation: 5,
+                      child: ListTile(
+                        title: Text('${(index + 1).toString().padLeft(2, '0')}. ${card['name']}'),
+                        subtitle: Text(card['phone'] ?? ''),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
