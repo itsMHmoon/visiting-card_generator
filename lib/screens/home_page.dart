@@ -336,7 +336,14 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Visiting Card Generator',)),
+      appBar: AppBar(
+        title: Text('Visiting Card Generator',
+                style: GoogleFonts.roboto(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: const Color(0xFF0A0A0A),
+                ),
+      )),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
