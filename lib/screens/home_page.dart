@@ -302,8 +302,8 @@ class _HomePageState extends State<HomePage> {
               style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 0, 153, 255), 
               foregroundColor: Colors.white, 
               elevation: 2),
-              // onPressed: _printCard,      // Print / Export as PDF
-              onPressed: null,
+              onPressed: _printCard,      // Print / Export as PDF
+              // onPressed: null, //grayed button
               child: Text('Export',
                           style: GoogleFonts.gabarito(
                                               fontSize: 17,

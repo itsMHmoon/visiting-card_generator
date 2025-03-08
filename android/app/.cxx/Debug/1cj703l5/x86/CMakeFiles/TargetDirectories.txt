@@ -1,0 +1,2 @@
+F:/Dev/Flutter/visiting-card_generator/android/app/.cxx/Debug/1cj703l5/x86/CMakeFiles/edit_cache.dir
+F:/Dev/Flutter/visiting-card_generator/android/app/.cxx/Debug/1cj703l5/x86/CMakeFiles/rebuild_cache.dir
