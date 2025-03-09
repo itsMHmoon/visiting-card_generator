@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:visiting_card_generator/widgets/app_bar.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -35,36 +36,37 @@ class _HomePageState extends State<HomePage> {
             height: 170,
             padding: pw.EdgeInsets.all(16.0),
             decoration: pw.BoxDecoration(
-              border: pw.Border.all(
-                color: PdfColors.black, 
-                width: 2),
+                            border: pw.Border.all(
+                                        color: PdfColors.black, 
+                                        width: 2,
+                                      ),
               borderRadius: pw.BorderRadius.circular(10),
             ),
             child: pw.Row(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                pw.Expanded(
-                  child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.end,
-                    children: [
-                      if (name.isNotEmpty)
-                        pw.Text(
-                          name,
-                          style: pw.TextStyle(
-                            fontSize: 17, 
-                            color: PdfColors.blue900
-                          ),
-                        ),
-                      if (degree.isNotEmpty) pw.Text(degree),
-                      if (designation.isNotEmpty) pw.Text(designation),
-                    ],
-                  ),
-                ),
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Expanded(
+                              child: pw.Column(
+                                          crossAxisAlignment: pw.CrossAxisAlignment.end,
+                                          children: [
+                                            if (name.isNotEmpty)
+                                              pw.Text(
+                                                name,
+                                                style: pw.TextStyle(
+                                                  fontSize: 17, 
+                                                  color: PdfColors.blue900
+                                                ),
+                                              ),
+                                            if (degree.isNotEmpty) pw.Text(degree),
+                                            if (designation.isNotEmpty) pw.Text(designation),
+                                          ],
+                                        ),
+                            ),
                 pw.Container(
-                  width: 1,
-                  color: PdfColors.black,
-                  margin: pw.EdgeInsets.symmetric(horizontal: 8.0),
-                ),
+                    width: 1,
+                    color: PdfColors.black,
+                    margin: pw.EdgeInsets.symmetric(horizontal: 8.0),
+                    ),
                 pw.Expanded(
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -116,12 +118,12 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Update Information',
-                    style: GoogleFonts.gabarito(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                  ),
+                  style: GoogleFonts.gabarito(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                          ),
+                ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -165,10 +167,10 @@ class _HomePageState extends State<HomePage> {
             },
             child: Text('Update',
                     style: GoogleFonts.gabarito(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            ),
             ),
           ),
 
@@ -200,14 +202,14 @@ class _HomePageState extends State<HomePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Visiting Card',
-                    style: GoogleFonts.gantari(
-                                              fontSize: 25,
-                                              fontWeight: FontWeight.w400,
-                                              color: Colors.black,
-                                            ),
-                  ),
-
+        title: null,
+        // Text('',
+                    // style: GoogleFonts.gantari(
+                    //                           fontSize: 25,
+                    //                           fontWeight: FontWeight.w400,
+                    //                           color: Colors.black,
+                    //                         ),
+                  // ),
         content: SizedBox(
             width: 300,
             height: 170,
@@ -299,31 +301,31 @@ class _HomePageState extends State<HomePage> {
         actions: [
             // Text('Unique ID: $uniqueId', style: GoogleFonts.abel(fontSize: 7, color: Color.fromARGB(101, 77, 76, 76))),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 0, 153, 255), 
+              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF4CC9F0), 
               foregroundColor: Colors.white, 
               elevation: 2),
               onPressed: _printCard,      // Print / Export as PDF
               // onPressed: null, //grayed button
               child: Text('Export',
-                          style: GoogleFonts.gabarito(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
+                      style: GoogleFonts.gabarito(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              ),
               ),
             ),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 255, 51, 1), 
+              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFFF07167), 
               foregroundColor: Colors.white, 
               elevation: 2),
               onPressed: () => Navigator.of(context).pop(),
               child: Text('Close',
-                          style: GoogleFonts.gabarito(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                        ),
+                      style: GoogleFonts.gabarito(
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              ),
+                      ),
             ),
         ],
       ),
@@ -336,14 +338,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Visiting Card Generator',
-                style: GoogleFonts.roboto(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF0A0A0A),
-                ),
-      )),
+      appBar: CustomAppBar(),  //custom appBar
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -380,7 +375,7 @@ class _HomePageState extends State<HomePage> {
                     onChanged: (value) => address = value),
                   SizedBox(height: 10),
                   ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 51, 204, 1), 
+                    style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF4EB09B), 
                     foregroundColor: Colors.white, 
                     elevation: 2),
                     onPressed: _addCard, 
